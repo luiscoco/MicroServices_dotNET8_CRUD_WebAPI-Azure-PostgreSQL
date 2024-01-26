@@ -18,26 +18,10 @@ namespace AzureMySQLWebAPI.Data
 
         public async Task<IEnumerable<Item>> GetAllItemsAsync()
         {
-            using (var connection = new NpgsqlConnection(_connectionString))
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
-                try
-                {
-                    connection.Open();
-                    Console.WriteLine("Connection successful!");
-                    return await connection.QueryAsync<Item>("SELECT * FROM items;");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("An error occurred while trying to connect:");
-                    Console.WriteLine(ex.Message);
-                    return null;
-                }
+                return await db.QueryAsync<Item>("SELECT * FROM items");
             }
-
-            //using (IDbConnection db = new NpgsqlConnection(_connectionString))
-            //{
-            //    return await db.QueryAsync<Item>("SELECT * FROM Items");
-            //}
         }
 
         // Add method to retrieve a single item by id
@@ -45,7 +29,7 @@ namespace AzureMySQLWebAPI.Data
         {
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
-                return await db.QueryFirstOrDefaultAsync<Item>("SELECT * FROM Items WHERE Id = @Id", new { Id = id });
+                return await db.QueryFirstOrDefaultAsync<Item>("SELECT * FROM items WHERE id = @id", new { id = id });
             }
         }
 
@@ -54,7 +38,7 @@ namespace AzureMySQLWebAPI.Data
         {
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
-                var sql = "INSERT INTO Items (Name) VALUES (@Name) RETURNING Id;";
+                var sql = "INSERT INTO items (name) VALUES (@name) RETURNING id;";
                 return await db.ExecuteScalarAsync<int>(sql, item);
             }
         }
@@ -64,7 +48,7 @@ namespace AzureMySQLWebAPI.Data
         {
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
-                var sql = "UPDATE Items SET Name = @Name WHERE Id = @Id";
+                var sql = "UPDATE items SET name = @name WHERE id = @id";
                 await db.ExecuteAsync(sql, item);
             }
         }
@@ -74,7 +58,7 @@ namespace AzureMySQLWebAPI.Data
         {
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
-                await db.ExecuteAsync("DELETE FROM Items WHERE Id = @Id", new { Id = id });
+                await db.ExecuteAsync("DELETE FROM items WHERE id = @id", new { id = id });
             }
         }
 
