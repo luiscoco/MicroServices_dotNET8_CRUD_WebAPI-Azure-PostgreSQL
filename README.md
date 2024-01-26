@@ -1,6 +1,8 @@
 # How to create .NET8 CRUD WebAPI Azure PostgreSQL Microservice and deploy to Docker Desktop and Kubernetes (in your local laptop)
 
-The source code is available in this github: 
+The source code is available in this github: https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL
+
+This example was develop for protocol **HTTP** if you would like to use also protocol **HTTPS** please refer to the repo: https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-MySQL
 
 ## 1. Prerequisite
 
