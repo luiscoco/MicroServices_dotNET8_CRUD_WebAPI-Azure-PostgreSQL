@@ -66,10 +66,7 @@ namespace AzureMySQLWebAPI.Data
         {
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
-                var parameters = new DynamicParameters();
-                parameters.Add("itemName", item.name, DbType.String);
-
-                await db.ExecuteAsync("AddNewItem", parameters, commandType: CommandType.StoredProcedure);
+                await db.ExecuteAsync("CALL addnewitem(@itemName)", new { itemName = item.name });
             }
         }
     }
