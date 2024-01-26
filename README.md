@@ -12,7 +12,17 @@ We select Azure Database for **PostgreSQL**
 
 We input the required data to create a new **Flexible Server**
 
-Server Name: mysqlserver1974
+Server Name: postgresqlserver1974
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/76d5eef3-e234-4b40-9236-bdbb6e6e29b9)
+
+We **configure the server** (compute and storage) abd press the **Save** button 
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/c9677b96-fee6-4020-8938-4cf18ddd8730)
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/299ae028-9da3-4d99-8466-33fd9b485c62)
+
+We continue configuring the
 
 Admin username: adminmysql
 
@@ -65,6 +75,8 @@ We select the project main features
 We create the following project folders structure, with the Data and Models new folders
 
 We load the **dependencies**: Dapper, Microsoft.VisualStudio.Azure.Containers.Tools.Targets, **Npgsql** and Swashbuckle.AspNetCore
+
+We define in the **appsettings.json** file the database connection string
 
 
 
