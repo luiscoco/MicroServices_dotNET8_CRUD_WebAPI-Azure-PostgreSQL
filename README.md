@@ -452,27 +452,29 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["AzureMySQLWebAPI.csproj", "."]
-RUN dotnet restore "./././AzureMySQLWebAPI.csproj"
+COPY ["AzurePostgreSQLWebAPI.csproj", "."]
+RUN dotnet restore "./././AzurePostgreSQLWebAPI.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "./AzureMySQLWebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./AzurePostgreSQLWebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./AzureMySQLWebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./AzurePostgreSQLWebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "AzureMySQLWebAPI.dll"]
+ENTRYPOINT ["dotnet", "AzurePostgreSQLWebAPI.dll"]
 ```
 
-We right click on the project and select Open in Terminal and the we run the following command to create the Docker image
+We right click on the project and select Open in Terminal and the we run the following command to **create the Docker image**
 
 ```
 docker build -t myapp:latest .
 ```
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/1a4b34a0-df3f-4e30-8c4e-9672f8fc1d17)
 
 We verify the Docker image was created with the command
 
@@ -480,11 +482,14 @@ We verify the Docker image was created with the command
 docker images
 ```
 
-We run the Docker container with the following command
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/b491773f-50ee-4aaf-86e0-ad547c652f92)
+
+
+We **run the Docker container** with the following command
 
 ```
 docker run -d -p 8080:8080 myapp:latest
 ```
 
-Also in Docker Desktop we can see the Docker image and the running container
+Also in **Docker Desktop** we can see the Docker image and the running container
 
