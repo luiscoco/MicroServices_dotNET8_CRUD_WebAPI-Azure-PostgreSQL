@@ -647,3 +647,5 @@ We can also verify the deployment with this command
 kubectl get all
 ```
 
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/2fff241d-9d2d-4a12-8a8b-bc110700defb)
+
