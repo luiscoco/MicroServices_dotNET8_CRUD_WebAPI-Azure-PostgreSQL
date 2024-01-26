@@ -609,3 +609,41 @@ spec:
 
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/baf2ae45-db90-4d3a-99cc-951a035917b3)
 
+We set the current Kubernetes context to Docker Desktop Kubernetes with this command:
+
+```
+kubectl config use-context docker-desktop
+```
+
+Now we can apply both kubernetes manifest files with these commands
+
+```
+kubectl apply -f deployment.yml
+```
+
+and
+
+```
+kubectl apply -f service.yml
+```
+
+We can use the command "**kubectl get services**" to check the **external IP** and port your application is accessible on, if using a LoadBalancer.
+
+Verify the Deployment with the command:
+
+```
+kubectl get deployments
+```
+
+Verify the service status with the command:
+
+```
+kubectl get services
+```
+
+We can also verify the deployment with this command
+
+```
+kubectl get all
+```
+
