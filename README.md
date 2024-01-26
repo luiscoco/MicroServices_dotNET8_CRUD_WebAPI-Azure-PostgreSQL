@@ -434,4 +434,57 @@ We run again the GET request to retrieve all the items in the database
 
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/9d07dd18-5515-4079-8d49-14a5ad174be7)
 
+### 4. How to deploy the WebAPI Microservice to Docker Desktop
+
+We right click on the project and we **add Docker support...**
+
+Automatically Visual Studio will create the Dockerfile
+
+**Dockerfile**
+
+```
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER app
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["AzureMySQLWebAPI.csproj", "."]
+RUN dotnet restore "./././AzureMySQLWebAPI.csproj"
+COPY . .
+WORKDIR "/src/."
+RUN dotnet build "./AzureMySQLWebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./AzureMySQLWebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "AzureMySQLWebAPI.dll"]
+```
+
+We right click on the project and select Open in Terminal and the we run the following command to create the Docker image
+
+```
+docker build -t myapp:latest .
+```
+
+We verify the Docker image was created with the command
+
+```
+docker images
+```
+
+We run the Docker container with the following command
+
+```
+docker run -d -p 8080:8080 myapp:latest
+```
+
+Also in Docker Desktop we can see the Docker image and the running container
 
