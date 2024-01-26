@@ -577,7 +577,7 @@ spec:
         - containerPort: 8080
         env:
         - name: ConnectionStrings__DefaultConnection
-          value: server=Host=postgresqlserver1974.postgres.database.azure.com;Database=postgresqldb;Username=adminpostgresql;Port=5432;Password=Luiscoco123456;SSL Mode=Require;Trust Server Certificate=true
+          value: Host=postgresqlserver1974.postgres.database.azure.com;Database=postgresqldb;Username=adminpostgresql;Port=5432;Password=Luiscoco123456;SSL Mode=Require;Trust Server Certificate=true
       # Removed volumeMounts section related to the certificate
 ```
 
@@ -650,3 +650,6 @@ kubectl get all
 We verify the application access endpoint
 
 http://localhost/api/Items
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/cf8bbbf9-1db8-4482-ba07-8c2e9a3491d3)
+
