@@ -59,7 +59,11 @@ psql -h postgresqlserver1974.postgres.database.azure.com -d postgres -U adminpos
 We **create a database** with this command
 
 ```
-CREATE DATABASE postgresqldb WITH ENCODING 'UTF8' LC_COLLATE='en_US.utf8' LC_CTYPE='en_US.utf8' TEMPLATE=template0;
+CREATE DATABASE postgresqldb
+    WITH ENCODING 'UTF8'
+    LC_COLLATE='en_US.utf8'
+    LC_CTYPE='en_US.utf8'
+    TEMPLATE=template0;
 ```
 
 **IMPORTANT NOTE**: 
