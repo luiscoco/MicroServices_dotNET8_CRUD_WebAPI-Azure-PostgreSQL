@@ -534,3 +534,20 @@ We start building and pushing the application Docker image to the Docker Hub reg
 ```
 docker build -t luiscoco/myapp:latest .
 ```
+
+To verify we created the docker image run the command:
+
+```
+docker images
+```
+
+Then we use the docker push command to upload the image to the Docker Hub repository:
+
+```
+docker push luiscoco/myapp:latest
+```
+
+**Note**: run the "**docker login**" command if you have no access to Docker Hub repo
+
+We create the deployment.yml and the service.yml files in our project
+
