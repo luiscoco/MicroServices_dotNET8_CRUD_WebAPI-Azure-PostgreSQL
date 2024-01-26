@@ -575,7 +575,7 @@ spec:
         - containerPort: 8080
         env:
         - name: ConnectionStrings__DefaultConnection
-          value: server=mysqlserver1974.mysql.database.azure.com;database=mysqldatabase;user=adminmysql;password=Luiscoco123456
+          value: server=Host=postgresqlserver1974.postgres.database.azure.com;Database=postgresqldb;Username=adminpostgresql;Port=5432;Password=Luiscoco123456;SSL Mode=Require;Trust Server Certificate=true
       # Removed volumeMounts section related to the certificate
 ```
 
