@@ -84,7 +84,7 @@ Ensure that you're using the correct syntax when specifying the LC_COLLATE setti
 The syntax for setting this parameter when creating a new database should be part of the CREATE DATABASE statement, for example:
 
 ```sql
-CREATE DATABASE mydatabase
+CREATE DATABASE postgresqldatabase
 WITH ENCODING 'UTF8'
 LC_COLLATE='en_US.utf8'
 LC_CTYPE='en_US.utf8'
