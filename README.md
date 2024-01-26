@@ -443,6 +443,8 @@ Automatically Visual Studio will create the Dockerfile
 **Dockerfile**
 
 ```
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
@@ -452,27 +454,29 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["AzureMySQLWebAPI.csproj", "."]
-RUN dotnet restore "./././AzureMySQLWebAPI.csproj"
+COPY ["AzurePostgreSQLWebAPI.csproj", "."]
+RUN dotnet restore "./././AzurePostgreSQLWebAPI.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "./AzureMySQLWebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./AzurePostgreSQLWebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./AzureMySQLWebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./AzurePostgreSQLWebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "AzureMySQLWebAPI.dll"]
+ENTRYPOINT ["dotnet", "AzurePostgreSQLWebAPI.dll"]
 ```
 
-We right click on the project and select Open in Terminal and the we run the following command to create the Docker image
+We right click on the project and select Open in Terminal and the we run the following command to **create the Docker image**
 
 ```
 docker build -t myapp:latest .
 ```
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/1a4b34a0-df3f-4e30-8c4e-9672f8fc1d17)
 
 We verify the Docker image was created with the command
 
@@ -480,11 +484,169 @@ We verify the Docker image was created with the command
 docker images
 ```
 
-We run the Docker container with the following command
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/b491773f-50ee-4aaf-86e0-ad547c652f92)
+
+
+We **run the Docker container** with the following command
 
 ```
 docker run -d -p 8080:8080 myapp:latest
 ```
 
-Also in Docker Desktop we can see the Docker image and the running container
+Also in **Docker Desktop** we can see the Docker image and the running container
 
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/8d7afb26-00f5-444a-b705-f4fb30e35543)
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/4fd28f75-6a17-44b5-9cc9-6bb7a6e76b52)
+
+We verify the application is properly running 
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/4c1dc389-338a-4b3c-a138-c437afb133a2)
+
+## 4. How to deploy the WebAPI Microservice to Kubernetes (in Docker Desktop)
+
+For more details about this section see the repo: https://github.com/luiscoco/Kubernetes_Deploy_dotNET_8_Web_API
+
+We enable **Kubernetes** in **Docker Desktop**
+
+We run **Docker Desktop** and press on **Settings** button
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-MySQL/assets/32194879/8400e0df-1b4b-48c6-8b8d-a2abc4cd1868)
+
+We select **Enable Kubernetes** in the left hand side menu an press **Apply & Restart** button
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-MySQL/assets/32194879/40aac32a-67a4-4b1e-9bf6-c1bff1843896)
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-MySQL/assets/32194879/c7823d67-e0cc-4162-b6db-2218420ac3a6)
+
+Here are the general steps to deploy your .NET 8 Web API to Kubernetes:
+
+- **Build** and **Push** the Docker image to the **Docker Hub registry/repo**
+
+- Create Kubernetes **Deployment YAML file**. This file defines how your application is deployed in Kubernetes.
+
+- Create Kubernetes **Service YAML file**. This file defines how your application is exposed, either within Kubernetes cluster or to the outside world.
+
+- Apply the **YAML** files to your Kubernetes Cluster: use the command "kubectl apply" to create the resource defined in your YAML file in your Kubernetes cluster.
+
+We start building and pushing the application Docker image to the Docker Hub registry/repo
+
+```
+docker build -t luiscoco/myapp:latest .
+```
+
+To verify we created the docker image run the command:
+
+```
+docker images
+```
+
+Then we use the docker push command to upload the image to the Docker Hub repository:
+
+```
+docker push luiscoco/myapp:latest
+```
+
+**Note**: run the "**docker login**" command if you have no access to Docker Hub repo
+
+We create the **deployment.yml** and the **service.yml** files in our project
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/5f0d3e9c-a85b-4f94-ac7c-2bc722c2cc8f)
+
+**deployment.yml**
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: luiscoco/myapp:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          value: server=Host=postgresqlserver1974.postgres.database.azure.com;Database=postgresqldb;Username=adminpostgresql;Port=5432;Password=Luiscoco123456;SSL Mode=Require;Trust Server Certificate=true
+      # Removed volumeMounts section related to the certificate
+```
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/638d86a9-3bda-4884-acd6-77e3fbfbbc75)
+
+We also create the **service.yml** file
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/0dae9ea3-92f3-4d53-a6a4-661ed5a55f40)
+
+**service.yml**
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: myapp
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+```
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/baf2ae45-db90-4d3a-99cc-951a035917b3)
+
+We set the current Kubernetes context to Docker Desktop Kubernetes with this command:
+
+```
+kubectl config use-context docker-desktop
+```
+
+Now we can apply both kubernetes manifest files with these commands
+
+```
+kubectl apply -f deployment.yml
+```
+
+and
+
+```
+kubectl apply -f service.yml
+```
+
+We can use the command "**kubectl get services**" to check the **external IP** and port your application is accessible on, if using a LoadBalancer.
+
+Verify the Deployment with the command:
+
+```
+kubectl get deployments
+```
+
+Verify the service status with the command:
+
+```
+kubectl get services
+```
+
+We can also verify the deployment with this command
+
+```
+kubectl get all
+```
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/2fff241d-9d2d-4a12-8a8b-bc110700defb)
+
+We verify the application access endpoint
+
+http://localhost/api/Items
