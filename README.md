@@ -73,12 +73,26 @@ We right click on the databases and create a new one
 We verify the new database in the list
 
 
+**IMPORTANT NOTE**: 
 
-We create a database running this command
+The **LC_COLLATE** parameter determines the sorting order of strings in the database, such as how names and titles are sorted in queries. 
+
+This setting is crucial for ensuring that data is sorted correctly according to the local conventions of the database's intended audience.
+
+Ensure that you're using the correct syntax when specifying the LC_COLLATE setting. 
+
+The syntax for setting this parameter when creating a new database should be part of the CREATE DATABASE statement, for example:
 
 ```sql
-CREATE DATABASE mysqldatabase
+CREATE DATABASE mydatabase
+WITH ENCODING 'UTF8'
+LC_COLLATE='en_US.utf8'
+LC_CTYPE='en_US.utf8'
+TEMPLATE=template0;
 ```
+
+Make sure you're using the correct quotation marks and that the locale you're specifying is available on your system.
+
 
 We create a new Table an insert some rows
 
