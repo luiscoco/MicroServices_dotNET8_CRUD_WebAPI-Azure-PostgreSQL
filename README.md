@@ -443,6 +443,8 @@ Automatically Visual Studio will create the Dockerfile
 **Dockerfile**
 
 ```
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
@@ -492,4 +494,12 @@ docker run -d -p 8080:8080 myapp:latest
 ```
 
 Also in **Docker Desktop** we can see the Docker image and the running container
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/8d7afb26-00f5-444a-b705-f4fb30e35543)
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/4fd28f75-6a17-44b5-9cc9-6bb7a6e76b52)
+
+We verify the application is properly running 
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/4c1dc389-338a-4b3c-a138-c437afb133a2)
 
