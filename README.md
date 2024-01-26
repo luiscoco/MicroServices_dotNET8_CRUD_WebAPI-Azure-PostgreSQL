@@ -4,7 +4,7 @@ The source code is available in this github:
 
 ## 1. Prerequisite
 
-### 1.1. Create Azure MySQL instance
+### 1.1. Create Azure PostgreSQL instance
 
 We navigate to **Create a resource** and select **Databases**
 
