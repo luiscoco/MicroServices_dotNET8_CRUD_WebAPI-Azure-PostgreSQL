@@ -503,3 +503,34 @@ We verify the application is properly running
 
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/4c1dc389-338a-4b3c-a138-c437afb133a2)
 
+## 4. How to deploy the WebAPI Microservice to Kubernetes (in Docker Desktop)
+
+For more details about this section see the repo: https://github.com/luiscoco/Kubernetes_Deploy_dotNET_8_Web_API
+
+We enable **Kubernetes** in **Docker Desktop**
+
+We run **Docker Desktop** and press on **Settings** button
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-MySQL/assets/32194879/8400e0df-1b4b-48c6-8b8d-a2abc4cd1868)
+
+We select **Enable Kubernetes** in the left hand side menu an press **Apply & Restart** button
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-MySQL/assets/32194879/40aac32a-67a4-4b1e-9bf6-c1bff1843896)
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-MySQL/assets/32194879/c7823d67-e0cc-4162-b6db-2218420ac3a6)
+
+Here are the general steps to deploy your .NET 8 Web API to Kubernetes:
+
+- **Build** and **Push** the Docker image to the **Docker Hub registry/repo**
+
+- Create Kubernetes **Deployment YAML file**. This file defines how your application is deployed in Kubernetes.
+
+- Create Kubernetes **Service YAML file**. This file defines how your application is exposed, either within Kubernetes cluster or to the outside world.
+
+- Apply the **YAML** files to your Kubernetes Cluster: use the command "kubectl apply" to create the resource defined in your YAML file in your Kubernetes cluster.
+
+We start building and pushing the application Docker image to the Docker Hub registry/repo
+
+```
+docker build -t luiscoco/myapp:latest .
+```
