@@ -420,3 +420,18 @@ namespace AzureMySQLWebAPI.Controllers
 
 We run the application and we verify the enpoints with swagger
 
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/bc16c33a-50aa-418e-99c8-fda50a3c0c5f)
+
+We send a GET request to list all items in the database
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/6fa92849-4919-4bc8-8da8-0698e141266f)
+
+We insert one item with a POST request
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/4397f191-4197-4503-9e91-5b4e7bb6ba8d)
+
+We run again the GET request to retrieve all the items in the database
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/9d07dd18-5515-4079-8d49-14a5ad174be7)
+
+
