@@ -18,17 +18,19 @@ Server Name: postgresqlserver1974
 
 We **configure the server** (compute and storage) abd press the **Save** button 
 
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/6e2434a0-70d0-4821-844b-9ceddf0011e4)
+
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/c9677b96-fee6-4020-8938-4cf18ddd8730)
 
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/299ae028-9da3-4d99-8466-33fd9b485c62)
 
-We continue configuring the
+We continue configuring the **Authentication** data
 
-Admin username: adminmysql
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/e9655f2e-04c5-4a68-9475-f0fc7477da28)
 
-Password: LuiscocoXXXXXXXXXXX
+We navigate to the **Networking** tab and we add our laptop IP address as a FireWall rule
 
-We navigate to the Networking tab and we add our laptop IP address as a FireWall rule
+
 
 We can now access to **Azure PostgreSQL** from **pgAdmin 4** setting the hostname, username and password
 
