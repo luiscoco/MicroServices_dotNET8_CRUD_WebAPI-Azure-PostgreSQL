@@ -93,6 +93,7 @@ TEMPLATE=template0;
 
 Make sure you're using the correct quotation marks and that the locale you're specifying is available on your system.
 
+Use **Template0**: When creating a new database with specific **LC_COLLATE** and **LC_CTYPE** settings, it's recommended to use **TEMPLATE=template0**, as shown in the example above, because template0 is guaranteed to have the default settings, ensuring that the new database will inherit the specified LC_COLLATE and LC_CTYPE settings without issues.
 
 We create a new Table an insert some rows
 
