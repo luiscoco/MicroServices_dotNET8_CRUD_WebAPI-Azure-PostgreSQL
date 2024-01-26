@@ -553,8 +553,6 @@ We create the **deployment.yml** and the **service.yml** files in our project
 
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/5f0d3e9c-a85b-4f94-ac7c-2bc722c2cc8f)
 
-
-
 **deployment.yml**
 
 ```yaml
@@ -649,3 +647,6 @@ kubectl get all
 
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/2fff241d-9d2d-4a12-8a8b-bc110700defb)
 
+We verify the application access endpoint
+
+http://localhost/api/Items
