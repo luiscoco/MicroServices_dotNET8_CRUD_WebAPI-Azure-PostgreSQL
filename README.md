@@ -148,18 +148,183 @@ We define in the **appsettings.json** file the database connection string
 
 These are the parameters in the connection string:
 
-Host=postgresqlserver1974.postgres.database.azure.com;
+**Host**=postgresqlserver1974.postgres.database.azure.com;
 
-Database=postgresqldb;
+**Database**=postgresqldb;
 
-Username=adminpostgresql;
+**Username**=adminpostgresql;
 
-Port=5432;
+**Port**=5432;
 
-Password=Luiscoco123456;
+**Password**=Luiscoco123456;
 
-SSL Mode=Require;
+**SSL Mode**=Require;
 
-Trust Server Certificate=true
+**Trust Server Certificate**=true
 
+We configure the **middleware** with the **program.cs** file
 
+**program.cs**
+
+```csharp
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using AzureMySQLWebAPI.Data;
+using AzureMySQLWebAPI.Models;
+using Npgsql;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllers();
+
+// Register your repository
+builder.Services.AddScoped<ItemRepository>(serviceProvider =>
+    new ItemRepository(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Initialize the database and create the table if it doesn't exist
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+await InitializeDatabaseAsync(connectionString);
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
+
+// Database initialization logic
+async Task InitializeDatabaseAsync(string connectionString)
+{
+    using (var connection = new NpgsqlConnection(connectionString))
+    {
+        await connection.OpenAsync();
+        string createTableCommand = @"
+            CREATE TABLE IF NOT EXISTS public.Items
+            (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(255) NOT NULL
+                -- Add other column definitions as needed
+            );
+        ";
+
+        using (var command = new NpgsqlCommand(createTableCommand, connection))
+        {
+            await command.ExecuteNonQueryAsync();
+        }
+    }
+}
+```
+
+We create the data **Models**
+
+**Item.cs**
+
+```csharp
+namespace AzureMySQLWebAPI.Models
+{
+    public class Item
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        // Add other properties as needed
+    }
+}
+```
+
+We also create the Data repository
+
+**ItemRepository.cs**
+
+```csharp
+using Dapper;
+using Npgsql;
+using System.Collections.Generic;
+using System.Data;
+using System.Threading.Tasks;
+using AzureMySQLWebAPI.Models;
+
+namespace AzureMySQLWebAPI.Data
+{
+    public class ItemRepository
+    {
+        private readonly string _connectionString;
+
+        public ItemRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        public async Task<IEnumerable<Item>> GetAllItemsAsync()
+        {
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            {
+                return await db.QueryAsync<Item>("SELECT * FROM items");
+            }
+        }
+
+        // Add method to retrieve a single item by id
+        public async Task<Item> GetItemByIdAsync(int id)
+        {
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            {
+                return await db.QueryFirstOrDefaultAsync<Item>("SELECT * FROM items WHERE id = @id", new { id = id });
+            }
+        }
+
+        // Add method to insert a new item
+        public async Task<int> AddItemAsync(Item item)
+        {
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            {
+                var sql = "INSERT INTO items (name) VALUES (@name) RETURNING id;";
+                return await db.ExecuteScalarAsync<int>(sql, item);
+            }
+        }
+
+        // Add method to update an existing item
+        public async Task UpdateItemAsync(Item item)
+        {
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            {
+                var sql = "UPDATE items SET name = @name WHERE id = @id";
+                await db.ExecuteAsync(sql, item);
+            }
+        }
+
+        // Add method to delete an item
+        public async Task DeleteItemAsync(int id)
+        {
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            {
+                await db.ExecuteAsync("DELETE FROM items WHERE id = @id", new { id = id });
+            }
+        }
+
+        public async Task AddItemUsingStoredProcedureAsync(Item item)
+        {
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("itemName", item.name, DbType.String);
+
+                await db.ExecuteAsync("AddNewItem", parameters, commandType: CommandType.StoredProcedure);
+            }
+        }
+    }
+}
+```
