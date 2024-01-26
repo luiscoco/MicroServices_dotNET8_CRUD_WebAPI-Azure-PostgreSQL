@@ -54,9 +54,21 @@ We run **pgAdmin 4** and we create a new connection
 
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/870af1a5-c770-4862-9902-9b78ba55eadb)
 
-We input the new connection data
+We input the new connection data and we press the **Save** button to connect to the Azure PostgreSQL instance
 
-Now we can test the connection pressing on the Test connection button
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/47ff6864-3aa8-4c92-86b8-2a620b09bb1a)
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/a1c4914b-32ff-42b4-a034-d415bab3f3a1)
+
+We verify the new Server in the list
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/fc2ca09c-8390-43ae-81fe-3cf5515e865d)
+
+We right click on the databases and create a new one
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/52fbb820-66dc-4647-9083-5c9c1f69433d)
+
+
 
 We create a database running this command
 
