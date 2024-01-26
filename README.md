@@ -8,7 +8,7 @@ The source code is available in this github:
 
 We navigate to **Create a resource** and select **Databases**
 
-![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/7cd49150-85f5-4f30-b1f6-f9b6bf7a7729)
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/34b76cbb-5e03-4959-9eee-3e5d822b09e5)
 
 We select Azure Database for **PostgreSQL**
 
