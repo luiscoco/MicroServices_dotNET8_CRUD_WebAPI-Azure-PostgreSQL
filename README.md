@@ -12,7 +12,7 @@ We navigate to **Create a resource** and select **Databases**
 
 We select Azure Database for **PostgreSQL**
 
-![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/c11a0598-94bd-4eb0-a758-34cc9127b311)
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/dd6b48c7-0195-4cbf-90d8-0bd5863a3932)
 
 We input the required data to create a new **Flexible Server**
 
