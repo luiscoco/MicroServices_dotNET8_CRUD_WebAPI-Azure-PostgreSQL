@@ -40,9 +40,34 @@ We press the **Review and create** button
 
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/7923bad1-364e-4932-8507-b1acc3c1335d)
 
-### 1.2. Install and Run pgAdmin 4 and create new database
+### 1.2. Install and Run PostgreSQL and pgAdmin
 
-We can now access to **Azure PostgreSQL** from **pgAdmin 4** setting the hostname, username and password
+We first **download and install PostgreSQL** from this URL: https://www.postgresql.org/download/windows/
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/3a50ac64-83ab-4aa3-912f-a06faea2ec69)
+
+https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/2e3af074-77b9-48da-8401-2156176cd409)
+
+We open a command prompt window as Administrator and **connect to the Azure PostgreSQL** instance with this command
+
+```
+psql -h postgresqlserver1974.postgres.database.azure.com -d postgres -U adminpostgresql
+```
+
+We **create a database** with this command
+
+```
+CREATE DATABASE postgresqldb WITH ENCODING 'UTF8' LC_COLLATE='en_US.utf8' LC_CTYPE='en_US.utf8' TEMPLATE=template0;
+```
+
+
+
+We can now access to **Azure PostgreSQL** from 
+
+
+**pgAdmin 4** setting the hostname, username and password
 
 We download and install **pgAdmin 4**
 
