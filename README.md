@@ -8,7 +8,11 @@ The source code is available in this github:
 
 We navigate to **Create a resource** and select **Databases**
 
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/7cd49150-85f5-4f30-b1f6-f9b6bf7a7729)
+
 We select Azure Database for **PostgreSQL**
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/c11a0598-94bd-4eb0-a758-34cc9127b311)
 
 We input the required data to create a new **Flexible Server**
 
@@ -34,11 +38,21 @@ We navigate to the **Networking** tab and we add our local laptop IP address as 
 
 We press the **Review and create** button 
 
-We can now access to **Azure PostgreSQL** from **pgAdmin 4** setting the hostname, username and password
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/7923bad1-364e-4932-8507-b1acc3c1335d)
 
 ### 1.2. Install and Run pgAdmin 4 and create new database
 
+We can now access to **Azure PostgreSQL** from **pgAdmin 4** setting the hostname, username and password
+
+We download and install **pgAdmin 4**
+
+https://www.pgadmin.org/download/pgadmin-4-windows/
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/3c0d33f4-bfa8-4565-a78a-d0a9faebeee5)
+
 We run **pgAdmin 4** and we create a new connection
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/870af1a5-c770-4862-9902-9b78ba55eadb)
 
 We input the new connection data
 
