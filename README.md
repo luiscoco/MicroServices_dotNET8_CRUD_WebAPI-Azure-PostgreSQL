@@ -71,6 +71,7 @@ CREATE DATABASE postgresqldb
     LC_CTYPE='en_US.utf8'
     TEMPLATE=template0;
 ```
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/6a68ffee-6182-468b-bdce-190f23830501)
 
 **IMPORTANT NOTE**: 
 
