@@ -43,15 +43,15 @@ namespace AzureMySQLWebAPI.Controllers
         public async Task<ActionResult<Item>> PostItem(Item item)
         {
             int id = await _repository.AddItemAsync(item);
-            item.Id = id;
-            return CreatedAtAction(nameof(GetItem), new { id = item.Id }, item);
+            item.id = id;
+            return CreatedAtAction(nameof(GetItem), new { id = item.id }, item);
         }
 
         // PUT: api/items/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutItem(int id, Item item)
         {
-            if (id != item.Id)
+            if (id != item.id)
             {
                 return BadRequest();
             }
@@ -74,7 +74,7 @@ namespace AzureMySQLWebAPI.Controllers
         public async Task<IActionResult> PostItemUsingStoredProcedure([FromBody] Item item)
         {
             await _repository.AddItemUsingStoredProcedureAsync(item);
-            return CreatedAtAction("GetItem", new { id = item.Id }, item);
+            return CreatedAtAction("GetItem", new { id = item.id }, item);
         }
     }
 }

@@ -18,10 +18,26 @@ namespace AzureMySQLWebAPI.Data
 
         public async Task<IEnumerable<Item>> GetAllItemsAsync()
         {
-            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
-                return await db.QueryAsync<Item>("SELECT * FROM Items");
+                try
+                {
+                    connection.Open();
+                    Console.WriteLine("Connection successful!");
+                    return await connection.QueryAsync<Item>("SELECT * FROM items;");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An error occurred while trying to connect:");
+                    Console.WriteLine(ex.Message);
+                    return null;
+                }
             }
+
+            //using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            //{
+            //    return await db.QueryAsync<Item>("SELECT * FROM Items");
+            //}
         }
 
         // Add method to retrieve a single item by id
@@ -67,7 +83,7 @@ namespace AzureMySQLWebAPI.Data
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("itemName", item.Name, DbType.String);
+                parameters.Add("itemName", item.name, DbType.String);
 
                 await db.ExecuteAsync("AddNewItem", parameters, commandType: CommandType.StoredProcedure);
             }
