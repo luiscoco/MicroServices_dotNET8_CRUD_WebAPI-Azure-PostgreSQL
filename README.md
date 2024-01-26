@@ -551,6 +551,10 @@ docker push luiscoco/myapp:latest
 
 We create the **deployment.yml** and the **service.yml** files in our project
 
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/5f0d3e9c-a85b-4f94-ac7c-2bc722c2cc8f)
+
+
+
 **deployment.yml**
 
 ```yaml
@@ -579,7 +583,11 @@ spec:
       # Removed volumeMounts section related to the certificate
 ```
 
-We also create the service.yml file
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/638d86a9-3bda-4884-acd6-77e3fbfbbc75)
+
+We also create the **service.yml** file
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/0dae9ea3-92f3-4d53-a6a4-661ed5a55f40)
 
 **service.yml**
 
@@ -598,3 +606,6 @@ spec:
       port: 80
       targetPort: 8080
 ```
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/baf2ae45-db90-4d3a-99cc-951a035917b3)
+
