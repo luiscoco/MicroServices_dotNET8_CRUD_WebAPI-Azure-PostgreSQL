@@ -68,6 +68,10 @@ We right click on the databases and create a new one
 
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/52fbb820-66dc-4647-9083-5c9c1f69433d)
 
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/580bc0f4-05ee-4158-8664-c8a1d8965cbe)
+
+We verify the new database in the list
+
 
 
 We create a database running this command
