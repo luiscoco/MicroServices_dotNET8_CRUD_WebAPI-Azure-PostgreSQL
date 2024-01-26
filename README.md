@@ -90,6 +90,14 @@ We verify the new Server in the list
 
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/fc2ca09c-8390-43ae-81fe-3cf5515e865d)
 
+If we click on the **databsename**, after we click on the **Schemas** and the in **Tables**
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/5e308d0e-7159-47a8-9771-24796900accc)
+
+For running a SQL query we click on the **Query Tool** button
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/0451248e-fea7-4c05-873c-7c512a1087a4)
+
 ### 2. How to Create .NET 8 WebAPI CRUD Microservice with Dapper
 
 We run **Visual Studio 2022 Community Edition** and we create a new project
