@@ -509,7 +509,7 @@ We verify the application is properly running
 
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/4c1dc389-338a-4b3c-a138-c437afb133a2)
 
-## 4. How to deploy the WebAPI Microservice to Kubernetes (in Docker Desktop)
+## 5. How to deploy the WebAPI Microservice to Kubernetes (in Docker Desktop)
 
 For more details about this section see the repo: https://github.com/luiscoco/Kubernetes_Deploy_dotNET_8_Web_API
 
