@@ -2,6 +2,12 @@
 
 The source code is available in this github: 
 
+https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL
+
+This example was develop for protocol **HTTP** if you would like to use also protocol **HTTPS** please refer to the repo:
+
+https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-MySQL
+
 ## 1. Prerequisite
 
 ### 1.1. Create Azure PostgreSQL instance
@@ -65,6 +71,7 @@ CREATE DATABASE postgresqldb
     LC_CTYPE='en_US.utf8'
     TEMPLATE=template0;
 ```
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/6a68ffee-6182-468b-bdce-190f23830501)
 
 **IMPORTANT NOTE**: 
 
@@ -503,7 +510,7 @@ We verify the application is properly running
 
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/4c1dc389-338a-4b3c-a138-c437afb133a2)
 
-## 4. How to deploy the WebAPI Microservice to Kubernetes (in Docker Desktop)
+## 5. How to deploy the WebAPI Microservice to Kubernetes (in Docker Desktop)
 
 For more details about this section see the repo: https://github.com/luiscoco/Kubernetes_Deploy_dotNET_8_Web_API
 
@@ -577,7 +584,7 @@ spec:
         - containerPort: 8080
         env:
         - name: ConnectionStrings__DefaultConnection
-          value: server=Host=postgresqlserver1974.postgres.database.azure.com;Database=postgresqldb;Username=adminpostgresql;Port=5432;Password=Luiscoco123456;SSL Mode=Require;Trust Server Certificate=true
+          value: Host=postgresqlserver1974.postgres.database.azure.com;Database=postgresqldb;Username=adminpostgresql;Port=5432;Password=Luiscoco123456;SSL Mode=Require;Trust Server Certificate=true
       # Removed volumeMounts section related to the certificate
 ```
 
@@ -650,3 +657,6 @@ kubectl get all
 We verify the application access endpoint
 
 http://localhost/api/Items
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/cf8bbbf9-1db8-4482-ba07-8c2e9a3491d3)
+
