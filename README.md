@@ -549,5 +549,52 @@ docker push luiscoco/myapp:latest
 
 **Note**: run the "**docker login**" command if you have no access to Docker Hub repo
 
-We create the deployment.yml and the service.yml files in our project
+We create the **deployment.yml** and the **service.yml** files in our project
 
+**deployment.yml**
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: luiscoco/myapp:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          value: server=mysqlserver1974.mysql.database.azure.com;database=mysqldatabase;user=adminmysql;password=Luiscoco123456
+      # Removed volumeMounts section related to the certificate
+```
+
+We also create the service.yml file
+
+**service.yml**
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: myapp
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+```
