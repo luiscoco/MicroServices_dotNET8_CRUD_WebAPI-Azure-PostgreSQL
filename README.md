@@ -132,12 +132,6 @@ We define in the **appsettings.json** file the database connection string
 
 ```json
 {
-  "ConnectionStrings": {
-    "DefaultConnection": "Host=postgresqlserver1974.postgres.database.azure.com;Database=postgresqldb;",
-    "Username=adminpostgresql",
-    "Port=5432",
-    "Password=Luiscoco123456"
-  },
   "Logging": {
     "LogLevel": {
       "Default": "Information",
@@ -145,9 +139,27 @@ We define in the **appsettings.json** file the database connection string
       "Microsoft.Hosting.Lifetime": "Information"
     }
   },
-  "AllowedHosts": "*"
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=postgresqlserver1974.postgres.database.azure.com;Database=postgresqldb;Username=adminpostgresql;Port=5432;Password=Luiscoco123456;SSL Mode=Require;Trust Server Certificate=true"
+  }
 }
 ```
 
+These are the parameters in the connection string:
+
+Host=postgresqlserver1974.postgres.database.azure.com;
+
+Database=postgresqldb;
+
+Username=adminpostgresql;
+
+Port=5432;
+
+Password=Luiscoco123456;
+
+SSL Mode=Require;
+
+Trust Server Certificate=true
 
 
