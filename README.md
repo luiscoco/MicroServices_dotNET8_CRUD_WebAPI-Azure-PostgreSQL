@@ -106,18 +106,45 @@ For running a SQL query we click on the **Query Tool** button
 
 We run **Visual Studio 2022 Community Edition** and we create a new project
 
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/86e4fd69-cb10-42de-b683-fbe8e8f4fd71)
+
 We select the **ASP Net Core Web API** project template
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/67ce7f97-daca-4db7-bd38-e935e1b11d6d)
 
 We set the project name and location
 
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/95597ce6-8e9d-438b-bcf0-483b0468b5c0)
+
 We select the project main features
 
-We create the following project folders structure, with the Data and Models new folders
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/649966dd-6d49-4908-9c8b-39f9160e0620)
+
+We create the following project folders structure, with the **Data** and **Models** new folders
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/0e321226-9d7d-4c5e-9174-344bd208bc89)
 
 We load the **dependencies**: Dapper, Microsoft.VisualStudio.Azure.Containers.Tools.Targets, **Npgsql** and Swashbuckle.AspNetCore
 
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/78d5a637-82a0-454b-b95b-6f1b760875b3)
+
 We define in the **appsettings.json** file the database connection string
 
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=postgresqlserver1974.postgres.database.azure.com;Database=postgresqldb;Username=adminpostgresql;Port=5432;Password=Luiscoco123456;SSL Mode=Require;Trust Server Certificate=true"
+  }
+}
+```
 
 
 
