@@ -16,7 +16,7 @@ We select Azure Database for **PostgreSQL**
 
 We input the required data to create a new **Flexible Server**
 
-Server Name: postgresqlserver1974
+**Server Name**: postgresqlserver1974
 
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/76d5eef3-e234-4b40-9236-bdbb6e6e29b9)
 
@@ -40,7 +40,37 @@ We press the **Review and create** button
 
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/7923bad1-364e-4932-8507-b1acc3c1335d)
 
-### 1.2. Install and Run pgAdmin 4 and create new database
+### 1.2. Install and Run PostgreSQL and pgAdmin
+
+We first **download and install PostgreSQL** from this URL: https://www.postgresql.org/download/windows/
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/3a50ac64-83ab-4aa3-912f-a06faea2ec69)
+
+https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/2e3af074-77b9-48da-8401-2156176cd409)
+
+We open a command prompt window as Administrator and **connect to the Azure PostgreSQL** instance with this command
+
+```
+psql -h postgresqlserver1974.postgres.database.azure.com -d postgres -U adminpostgresql
+```
+
+We **create a database** with this command
+
+```
+CREATE DATABASE postgresqldb
+    WITH ENCODING 'UTF8'
+    LC_COLLATE='en_US.utf8'
+    LC_CTYPE='en_US.utf8'
+    TEMPLATE=template0;
+```
+
+**IMPORTANT NOTE**: 
+
+The **LC_COLLATE** parameter determines the sorting order of strings in the database, such as how names and titles are sorted in queries. This setting is crucial for ensuring that data is sorted correctly according to the local conventions of the database's intended audience. Ensure that you're using the correct syntax when specifying the LC_COLLATE setting. 
+
+Use **Template0**: When creating a new database with specific **LC_COLLATE** and **LC_CTYPE** settings, it's recommended to use **TEMPLATE=template0**, as shown in the example above, because template0 is guaranteed to have the default settings, ensuring that the new database will inherit the specified LC_COLLATE and LC_CTYPE settings without issues.
 
 We can now access to **Azure PostgreSQL** from **pgAdmin 4** setting the hostname, username and password
 
@@ -64,69 +94,397 @@ We verify the new Server in the list
 
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/fc2ca09c-8390-43ae-81fe-3cf5515e865d)
 
-We right click on the databases and create a new one
+If we click on the **databsename**, after we click on the **Schemas** and the in **Tables**
 
-![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/52fbb820-66dc-4647-9083-5c9c1f69433d)
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/5e308d0e-7159-47a8-9771-24796900accc)
 
-![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/580bc0f4-05ee-4158-8664-c8a1d8965cbe)
+For running a SQL query we click on the **Query Tool** button
 
-We verify the new database in the list
-
-
-**IMPORTANT NOTE**: 
-
-The **LC_COLLATE** parameter determines the sorting order of strings in the database, such as how names and titles are sorted in queries. 
-
-This setting is crucial for ensuring that data is sorted correctly according to the local conventions of the database's intended audience.
-
-Ensure that you're using the correct syntax when specifying the LC_COLLATE setting. 
-
-The syntax for setting this parameter when creating a new database should be part of the CREATE DATABASE statement, for example:
-
-```sql
-CREATE DATABASE postgresqldatabase
-WITH ENCODING 'UTF8'
-LC_COLLATE='en_US.utf8'
-LC_CTYPE='en_US.utf8'
-TEMPLATE=template0;
-```
-
-Make sure you're using the correct quotation marks and that the locale you're specifying is available on your system.
-
-Use **Template0**: When creating a new database with specific **LC_COLLATE** and **LC_CTYPE** settings, it's recommended to use **TEMPLATE=template0**, as shown in the example above, because template0 is guaranteed to have the default settings, ensuring that the new database will inherit the specified LC_COLLATE and LC_CTYPE settings without issues.
-
-We create a new Table an insert some rows
-
-```sql
-CREATE TABLE Items (
-    Id INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(255) NOT NULL
-    -- Add other fields here as per your model
-);
-
-INSERT INTO Items (Name) VALUES ('Item 1');
-INSERT INTO Items (Name) VALUES ('Item 2');
-INSERT INTO Items (Name) VALUES ('Item 3');
-```
-
-We can verify the inserted items
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/0451248e-fea7-4c05-873c-7c512a1087a4)
 
 ### 2. How to Create .NET 8 WebAPI CRUD Microservice with Dapper
 
 We run **Visual Studio 2022 Community Edition** and we create a new project
 
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/86e4fd69-cb10-42de-b683-fbe8e8f4fd71)
+
 We select the **ASP Net Core Web API** project template
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/67ce7f97-daca-4db7-bd38-e935e1b11d6d)
 
 We set the project name and location
 
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/95597ce6-8e9d-438b-bcf0-483b0468b5c0)
+
 We select the project main features
 
-We create the following project folders structure, with the Data and Models new folders
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/649966dd-6d49-4908-9c8b-39f9160e0620)
+
+We create the following project folders structure, with the **Data** and **Models** new folders
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/0e321226-9d7d-4c5e-9174-344bd208bc89)
 
 We load the **dependencies**: Dapper, Microsoft.VisualStudio.Azure.Containers.Tools.Targets, **Npgsql** and Swashbuckle.AspNetCore
 
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/78d5a637-82a0-454b-b95b-6f1b760875b3)
+
 We define in the **appsettings.json** file the database connection string
 
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=postgresqlserver1974.postgres.database.azure.com;Database=postgresqldb;Username=adminpostgresql;Port=5432;Password=Luiscoco123456;SSL Mode=Require;Trust Server Certificate=true"
+  }
+}
+```
 
+These are the parameters in the connection string:
 
+**Host**=postgresqlserver1974.postgres.database.azure.com;
+
+**Database**=postgresqldb;
+
+**Username**=adminpostgresql;
+
+**Port**=5432;
+
+**Password**=Luiscoco123456;
+
+**SSL Mode**=Require;
+
+**Trust Server Certificate**=true
+
+We configure the **middleware** with the **program.cs** file
+
+**program.cs**
+
+```csharp
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using AzureMySQLWebAPI.Data;
+using AzureMySQLWebAPI.Models;
+using Npgsql;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllers();
+
+// Register your repository
+builder.Services.AddScoped<ItemRepository>(serviceProvider =>
+    new ItemRepository(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Initialize the database and create the table if it doesn't exist
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+await InitializeDatabaseAsync(connectionString);
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
+
+// Database initialization logic
+async Task InitializeDatabaseAsync(string connectionString)
+{
+    using (var connection = new NpgsqlConnection(connectionString))
+    {
+        await connection.OpenAsync();
+        string createTableCommand = @"
+            CREATE TABLE IF NOT EXISTS public.Items
+            (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(255) NOT NULL
+                -- Add other column definitions as needed
+            );
+        ";
+
+        using (var command = new NpgsqlCommand(createTableCommand, connection))
+        {
+            await command.ExecuteNonQueryAsync();
+        }
+    }
+}
+```
+
+We create the data **Models**
+
+**Item.cs**
+
+```csharp
+namespace AzureMySQLWebAPI.Models
+{
+    public class Item
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        // Add other properties as needed
+    }
+}
+```
+
+We also create the Data repository
+
+**ItemRepository.cs**
+
+```csharp
+using Dapper;
+using Npgsql;
+using System.Collections.Generic;
+using System.Data;
+using System.Threading.Tasks;
+using AzureMySQLWebAPI.Models;
+
+namespace AzureMySQLWebAPI.Data
+{
+    public class ItemRepository
+    {
+        private readonly string _connectionString;
+
+        public ItemRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        public async Task<IEnumerable<Item>> GetAllItemsAsync()
+        {
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            {
+                return await db.QueryAsync<Item>("SELECT * FROM items");
+            }
+        }
+
+        // Add method to retrieve a single item by id
+        public async Task<Item> GetItemByIdAsync(int id)
+        {
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            {
+                return await db.QueryFirstOrDefaultAsync<Item>("SELECT * FROM items WHERE id = @id", new { id = id });
+            }
+        }
+
+        // Add method to insert a new item
+        public async Task<int> AddItemAsync(Item item)
+        {
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            {
+                var sql = "INSERT INTO items (name) VALUES (@name) RETURNING id;";
+                return await db.ExecuteScalarAsync<int>(sql, item);
+            }
+        }
+
+        // Add method to update an existing item
+        public async Task UpdateItemAsync(Item item)
+        {
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            {
+                var sql = "UPDATE items SET name = @name WHERE id = @id";
+                await db.ExecuteAsync(sql, item);
+            }
+        }
+
+        // Add method to delete an item
+        public async Task DeleteItemAsync(int id)
+        {
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            {
+                await db.ExecuteAsync("DELETE FROM items WHERE id = @id", new { id = id });
+            }
+        }
+
+        public async Task AddItemUsingStoredProcedureAsync(Item item)
+        {
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("itemName", item.name, DbType.String);
+
+                await db.ExecuteAsync("AddNewItem", parameters, commandType: CommandType.StoredProcedure);
+            }
+        }
+    }
+}
+```
+
+We create the **Controller** for defining the database **CRUD** actions
+
+**ItemsController.cs**
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+using AzureMySQLWebAPI.Data;
+using AzureMySQLWebAPI.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace AzureMySQLWebAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ItemsController : ControllerBase
+    {
+        private readonly ItemRepository _repository;
+
+        public ItemsController(ItemRepository repository)
+        {
+            _repository = repository;
+        }
+
+        // GET: api/items
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Item>>> GetItems()
+        {
+            var items = await _repository.GetAllItemsAsync();
+            return Ok(items);
+        }
+
+        // GET: api/items/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Item>> GetItem(int id)
+        {
+            var item = await _repository.GetItemByIdAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return item;
+        }
+
+        // POST: api/items
+        [HttpPost]
+        public async Task<ActionResult<Item>> PostItem(Item item)
+        {
+            int id = await _repository.AddItemAsync(item);
+            item.id = id;
+            return CreatedAtAction(nameof(GetItem), new { id = item.id }, item);
+        }
+
+        // PUT: api/items/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutItem(int id, Item item)
+        {
+            if (id != item.id)
+            {
+                return BadRequest();
+            }
+
+            await _repository.UpdateItemAsync(item);
+
+            return NoContent();
+        }
+
+        // DELETE: api/items/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteItem(int id)
+        {
+            await _repository.DeleteItemAsync(id);
+            return NoContent();
+        }
+
+        // POST: api/items/sp
+        [HttpPost("sp")]
+        public async Task<IActionResult> PostItemUsingStoredProcedure([FromBody] Item item)
+        {
+            await _repository.AddItemUsingStoredProcedureAsync(item);
+            return CreatedAtAction("GetItem", new { id = item.id }, item);
+        }
+    }
+}
+```
+
+### 3. We run and verify the application
+
+We run the application and we verify the enpoints with swagger
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/bc16c33a-50aa-418e-99c8-fda50a3c0c5f)
+
+We send a GET request to list all items in the database
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/6fa92849-4919-4bc8-8da8-0698e141266f)
+
+We insert one item with a POST request
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/4397f191-4197-4503-9e91-5b4e7bb6ba8d)
+
+We run again the GET request to retrieve all the items in the database
+
+![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/9d07dd18-5515-4079-8d49-14a5ad174be7)
+
+### 4. How to deploy the WebAPI Microservice to Docker Desktop
+
+We right click on the project and we **add Docker support...**
+
+Automatically Visual Studio will create the Dockerfile
+
+**Dockerfile**
+
+```
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER app
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["AzureMySQLWebAPI.csproj", "."]
+RUN dotnet restore "./././AzureMySQLWebAPI.csproj"
+COPY . .
+WORKDIR "/src/."
+RUN dotnet build "./AzureMySQLWebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./AzureMySQLWebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "AzureMySQLWebAPI.dll"]
+```
+
+We right click on the project and select Open in Terminal and the we run the following command to create the Docker image
+
+```
+docker build -t myapp:latest .
+```
+
+We verify the Docker image was created with the command
+
+```
+docker images
+```
+
+We run the Docker container with the following command
+
+```
+docker run -d -p 8080:8080 myapp:latest
+```
+
+Also in Docker Desktop we can see the Docker image and the running container
 
