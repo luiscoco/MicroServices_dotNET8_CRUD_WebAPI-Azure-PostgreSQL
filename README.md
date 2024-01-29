@@ -73,7 +73,38 @@ CREATE DATABASE postgresqldb
 ```
 ![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/6a68ffee-6182-468b-bdce-190f23830501)
 
-![image](https://github.com/luiscoco/MicroServices_dotNET8_CRUD_WebAPI-Azure-PostgreSQL/assets/32194879/a24d7bee-f560-40aa-a159-8b1976db1846)
+We list the databases and we switch to the "**postgresqldb**" database
+
+Listing databases
+```
+\l
+```
+
+Switching to "**postgresqldb**" database
+
+```
+\c postgresqldb
+```
+
+Creating a new "**items**" table
+
+```psql
+CREATE TABLE items (id SERIAL PRIMARY KEY, name VARCHAR(255) NOT NULL);
+```
+
+Listing the tables in a database
+
+```plsql
+\dt
+```
+
+We insert some items in the created table
+
+```psql
+INSERT INTO items (name) VALUES ('Item 1'), ('Item 2'), ('Item 3'), ('Item 4');
+```
+
+![image](https://github.com/luiscoco/Golang-sample19-Azure-PostgreSQL-WebAPI-CRUD-Microservice/assets/32194879/cbbf3372-1579-4673-9439-8e29b6dcbedb)
 
 **IMPORTANT NOTE**: 
 
